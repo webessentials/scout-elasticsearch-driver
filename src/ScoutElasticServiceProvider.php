@@ -75,7 +75,10 @@ class ScoutElasticServiceProvider extends ServiceProvider
             ->singleton('scout_elastic.client', function () {
                 $config = Config::get('scout_elastic.client');
 
-                return ClientBuilder::fromConfig($config);
+                return ClientBuilder::create()
+                    ->setApiKey($config['hosts']['api_key_id'], $config['hosts']['api_key'])
+                    ->setHosts($config['hosts'])
+                    ->build();
             });
     }
 }

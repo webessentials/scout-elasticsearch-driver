@@ -133,6 +133,7 @@ class ElasticEngine extends Engine
 
         return $payloadCollection->map(function (TypePayload $payload) use ($builder, $options) {
             $payload
+                ->set('body.track_total_hits', true)
                 ->setIfNotEmpty('body._source', $builder->select)
                 ->setIfNotEmpty('body.collapse.field', $builder->collapse)
                 ->setIfNotEmpty('body.sort', $builder->orders)
